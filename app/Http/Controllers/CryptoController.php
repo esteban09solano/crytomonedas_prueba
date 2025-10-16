@@ -20,4 +20,12 @@ class CryptoController extends Controller
         return view('crypto.index', compact('data'));
         // return response()->json($data);
     }
+
+    public function getData(Request $request)
+    {
+        $symbol = $request->query('symbol');
+
+        $data = $this->coinService->getCryptoQuote($symbol);
+        return response()->json($data);
+    }
 }

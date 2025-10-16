@@ -30,12 +30,22 @@ class CoinMarketCapService
 
     public function getCryptoQuote($symbol)
     {
-        $response = Http::withHeaders([
-            'X-CMC_PRO_API_KEY' => $this->apiKey,
-            'Accept' => 'application/json',
-        ])->get("{$this->baseUrl}/cryptocurrency/quotes/latest", [
-            'symbol' => $symbol,
-        ]);
+        if ($symbol == "all") {
+            $response = Http::withHeaders([
+                'X-CMC_PRO_API_KEY' => $this->apiKey,
+                'Accept' => 'application/json',
+            ])->get("{$this->baseUrl}/cryptocurrency/listings/latest", [
+                // 'limit' => $limit,
+                'convert' => 'USD'
+            ]);
+        } else {
+            $response = Http::withHeaders([
+                'X-CMC_PRO_API_KEY' => $this->apiKey,
+                'Accept' => 'application/json',
+            ])->get("{$this->baseUrl}/cryptocurrency/quotes/latest", [
+                'symbol' => $symbol,
+            ]);
+        }
 
         return $response->json();
     }
