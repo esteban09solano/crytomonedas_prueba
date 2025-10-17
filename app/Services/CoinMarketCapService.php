@@ -49,4 +49,20 @@ class CoinMarketCapService
 
         return $response->json();
     }
+
+    public function getCryptoHistorical($symbol, $timeStart, $timeEnd)
+    {
+        $response = Http::withHeaders([
+            'X-CMC_PRO_API_KEY' => $this->apiKey,
+            'Accept' => 'application/json',
+        ])->get("{$this->baseUrl}/cryptocurrency/quotes/historical", [
+            'symbol' => $symbol,
+            'time_start' => $timeStart,
+            'time_end' => $timeEnd,
+            'interval' => 'daily',
+            'convert' => 'USD'
+        ]);
+
+        return $response->json();
+    }
 }

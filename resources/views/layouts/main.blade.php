@@ -1,5 +1,5 @@
 @include('layouts.header')
-<main>
+<main class="flex">
     @yield('content')
 </main>
 @include('layouts.footer')

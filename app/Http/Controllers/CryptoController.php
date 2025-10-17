@@ -28,4 +28,16 @@ class CryptoController extends Controller
         $data = $this->coinService->getCryptoQuote($symbol);
         return response()->json($data);
     }
+
+    public function getHistoricalData(Request $request)
+    {
+
+
+        $symbol = $request->input('symbol');
+        $timeStart = $request->input('time_start');
+        $timeEnd = $request->input('time_end');
+
+        $data = $this->coinService->getCryptoHistorical($symbol, $timeStart, $timeEnd);
+        return response()->json($data);
+    }
 }
